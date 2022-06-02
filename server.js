@@ -10,7 +10,12 @@ wsServer.on('connection', function(socket){
 
     socket.on('message', function(msg){
         console.log(`Recieved msg from client: ${msg}` )
-        socket.send(`Take this back: ${msg}`)
+        // socket.send(`Take this back: ${msg}`)
+
+        //Broadcast msg to all connected clients
+        wsServer.clients.forEach(function(client){
+            client.send(`${msg}`)
+        })
     })
 
     // Some feedback to client
